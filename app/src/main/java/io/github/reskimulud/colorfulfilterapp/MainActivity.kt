@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -73,6 +74,25 @@ class MainActivity : AppCompatActivity() {
                     imageFiltering.filterColorfulImageFromBitmap(currentBitmap) {
                         runOnUiThread {
                             ivPreviewImage.setImageBitmap(it)
+                            setLoading(false)
+                        }
+                    }
+                }
+            }
+
+            btnIsBlackWhite.setOnClickListener {
+                setLoading(true)
+
+                lifecycleScope.launch {
+                    getBitmapFromUri(currentImageUri)
+
+                    imageFiltering.isBlackAndWhite(currentBitmap) {
+                        runOnUiThread {
+                            if (it) {
+                                Toast.makeText(this@MainActivity, "Ini adalah gambar hitam putih", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(this@MainActivity, "Ini bukan gambar hitam putih", Toast.LENGTH_SHORT).show()
+                            }
                             setLoading(false)
                         }
                     }

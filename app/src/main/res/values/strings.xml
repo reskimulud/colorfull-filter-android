@@ -3,4 +3,5 @@
     <string name="action_filter">Filter</string>
     <string name="action_take_picture">Take Picture</string>
     <string name="action_gallery">Add From Gallery</string>
+    <string name="is_black_or_white">Is Black or White</string>
 </resources>

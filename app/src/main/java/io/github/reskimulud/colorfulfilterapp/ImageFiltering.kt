@@ -113,4 +113,33 @@ class ImageFiltering {
     }
 
     private fun Int.brighterColor(factor: Double): Int = (this * factor).toInt().coerceAtMost(255)
+
+
+    suspend fun isBlackAndWhite(bitmap: Bitmap, onSuccess: (Boolean) -> Unit) {
+        withContext(Dispatchers.IO) {
+            val deferredBlackWhite = async {
+                val width = bitmap.width
+                val height = bitmap.height
+                var totalColorVariation = 0
+
+                for (x in 0 until width) {
+                    for (y in 0 until height) {
+                        val pixel = bitmap.getPixel(x, y)
+                        val red = Color.red(pixel)
+                        val green = Color.green(pixel)
+                        val blue = Color.blue(pixel)
+
+                        val colorVariation = maxOf(red, green, blue) - minOf(red, green, blue)
+                        totalColorVariation += colorVariation
+                    }
+                }
+
+                val averageColorVariation = totalColorVariation.toDouble() / (width * height)
+
+                return@async averageColorVariation <= 30
+            }
+
+            onSuccess.invoke(deferredBlackWhite.await())
+        }
+    }
 }
