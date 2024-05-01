@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Colorful Filter App</string>
+    <string name="action_filter">Filter</string>
+    <string name="action_take_picture">Take Picture</string>
+    <string name="action_gallery">Add From Gallery</string>
+</resources>
