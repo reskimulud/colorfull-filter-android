@@ -145,11 +145,13 @@ class MainActivity : AppCompatActivity() {
                 btnFilter.isEnabled = false
                 btnFromGallery.isEnabled = false
                 btnTakeCamera.isEnabled = false
+                btnIsBlackWhite.isEnabled = false
                 pbLoading.visibility = View.VISIBLE
             } else {
                 btnFilter.isEnabled = true
                 btnFromGallery.isEnabled = true
                 btnTakeCamera.isEnabled = true
+                btnIsBlackWhite.isEnabled = true
                 pbLoading.visibility = View.GONE
             }
         }
