@@ -37,6 +37,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private val launcherIntentCamera = registerForActivityResult(
+        ActivityResultContracts.TakePicture()
+    ) { isSuccess ->
+        if (isSuccess) {
+            showImage()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -108,7 +116,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startCamera() {
-        // TODO : camera
+        currentImageUri = getImageUri(this)
+        launcherIntentCamera.launch(currentImageUri)
     }
 
     private fun getBitmapFromUri(uri: Uri?) {
